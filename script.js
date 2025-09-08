@@ -188,7 +188,6 @@ function movement(dt) {
 
   //horizontal updates
   player.x += player.xvel * dt * 60;
-  debug4.innerHTML = player.xvel;
 
   //ground1 horizontal collision
   if (rectIntersect(player, ground1)) {
@@ -330,9 +329,6 @@ function movement(dt) {
   //vertical updates
   player.yvel += gravity * dt * 60;
   player.y += player.yvel * dt * 60;
-  debug1.innerHTML = Math.round(player.x) + " " + Math.round(player.y)
-  debug2.innerHTML = isOnGround();
-  debug3.innerHTML = player.yvel;
   
   //ground8 vertical collisions
   if (rectIntersect(player, ground8)) {
