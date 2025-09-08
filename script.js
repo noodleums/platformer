@@ -1,4 +1,3 @@
-const debug1 = document.getElementById("debug1");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -11,7 +10,6 @@ const gravity = 0.1;
 let level = 1;
 
 let buttonClicked = false;
-let msgLoaded = false;
 
 let player = { 
   x: 440,
@@ -22,15 +20,6 @@ let player = {
   height: 20,
   spawnx: 0,
   spawny: 0
-};
-const button = {
-  x: 0,
-  y: 0,
-  width: 0,
-  height: 0
-};
-const secretmsg = {
-  text: "000.000.000.000"
 };
 const portal = {
   width: 15,
@@ -129,33 +118,7 @@ document.onkeyup = function(event) {
   }
 };
 
-canvas.addEventListener('mousedown', function(event) {
-  //mouse pos
-  const rect = canvas.getBoundingClientRect();
-  const mouseX = event.clientX - rect.left;
-  const mouseY = event.clientY - rect.top;
-
-  //mouse-button collision
-  if (
-    mouseX >= button.x &&
-    mouseX <= button.x + button.width &&
-    mouseY >= button.y &&
-    mouseY <= button.y + button.height
-  ) {
-    if (!msgLoaded) {
-      fetch("https://api.ipify.org?format=json")
-        .then(response => response.json())
-        .then(data => {
-          secretmsg.text = data.ip;
-          msgLoaded = true;
-        });
-    }
-  }
-});
-
 let lastTime = performance.now();
-
-
 
 function draw(currentTime) {
   const dt = (currentTime - lastTime) / 1000;
@@ -187,8 +150,6 @@ function drawMap() {
   ctx.fillStyle = "#eb3926";
   ctx.fillRect(lava1.x, lava1.y, lava1.width, lava1.height);
   ctx.fillRect(lava2.x, lava2.y, lava2.width, lava2.height);
-  ctx.fillStyle = "#f55151";
-  ctx.fillRect(button.x, button.y, button.width, button.height);
   drawLevels();
 }
 
@@ -580,10 +541,6 @@ function drawLevels() {
     ground8.x = 90;
     ground8.y = 50;
   } else if (level === 4) {
-    button.width = 0;
-    button.height = 0;
-    secretmsg.width = 0;
-    
     ground1.width = 120;
     ground1.height = 10;
     ground1.x = 0;
